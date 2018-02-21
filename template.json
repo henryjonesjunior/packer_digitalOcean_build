@@ -1,0 +1,26 @@
+{
+  "variables": {
+    "my_DO_token":"{{env `DO_TOKEN`}}"
+  },
+  "builders": [
+    {
+      "type": "digitalocean",
+      "ssh_username": "root",
+      "api_token": "{{ user `my_DO_token` }}",
+      "image": "centos-7-x64",
+      "region": "nyc1",
+      "size": "512mb"
+    }],
+    "provisioners": [
+    {
+      "type": "file",
+      "source": "configs/",
+      "destination": "/tmp"
+    },
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/configureNginx.sh"
+      ]
+    }]
+}
